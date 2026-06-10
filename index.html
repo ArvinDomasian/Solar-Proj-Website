@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SENTINEL AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sora: ["Sora", "system-ui", "sans-serif"],
+              inter: ["Inter", "system-ui", "sans-serif"],
+            },
+            colors: {
+              foreground: "hsl(var(--foreground) / <alpha-value>)",
+              "muted-foreground": "hsl(var(--muted-foreground) / <alpha-value>)",
+              "nav-button": "hsl(var(--nav-button) / <alpha-value>)",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      :root {
+        --foreground: 0 0% 96%;
+        --muted-foreground: 0 0% 60%;
+        --nav-button: 0 0% 18%;
+      }
+    </style>
+  </head>
+  <body class="font-sora antialiased">
+    <nav
+      class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-5 lg:px-16"
+    >
+      <a
+        href="/"
+        class="text-xl font-semibold tracking-tight text-foreground"
+      >
+        SENTINEL
+      </a>
+
+      <div
+        class="absolute left-1/2 hidden -translate-x-1/2 items-center gap-8 md:flex"
+      >
+        <a
+          href="#"
+          class="text-sm uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground"
+        >
+          Services
+        </a>
+        <a
+          href="#"
+          class="text-sm uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground"
+        >
+          About Us
+        </a>
+        <a
+          href="#"
+          class="text-sm uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground"
+        >
+          Projects
+        </a>
+        <a
+          href="#"
+          class="text-sm uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground"
+        >
+          Team
+        </a>
+        <a
+          href="#"
+          class="text-sm uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground"
+        >
+          Contacts
+        </a>
+      </div>
+
+      <button
+        type="button"
+        class="hidden items-center justify-center rounded-lg bg-nav-button px-6 py-3 text-xs uppercase tracking-widest text-foreground transition-all hover:bg-nav-button/80 active:scale-[0.97] md:inline-flex"
+      >
+        Get Quote
+      </button>
+    </nav>
+
+    <section class="relative flex h-screen w-full flex-col overflow-hidden bg-black font-inter">
+      <!-- Background images can be added here later -->
+      <div class="absolute inset-0 bg-black" aria-hidden="true"></div>
+
+      <div class="relative z-10 px-6 pt-28 text-center md:pt-32">
+        <h1 class="text-4xl font-semibold leading-[1.15] tracking-tight sm:text-5xl md:text-6xl">
+          <span class="text-[#8A8A85]">Turn </span>
+          <span class="text-white">sunlight</span>
+          <span class="text-[#8A8A85]"> <br> into 10 years of savings</span>
+        </h1>
+      </div>
+
+      <div class="flex-1" aria-hidden="true"></div>
+
+      <div class="relative z-10 px-6 pb-10 text-center md:pb-14">
+        <p class="mx-auto max-w-xl text-sm leading-relaxed text-white/80 md:text-base">
+          Forget the energy market, weather conditions and seasons; our Smart Controller
+          guarantees you get no electricity bill for Ten years.
+        </p>
+      </div>
+    </section>
+  </body>
+</html>
