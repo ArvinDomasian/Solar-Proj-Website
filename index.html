@@ -228,6 +228,40 @@
       [data-theme="night"] .glass-toggle-icon-moon {
         opacity: 1;
       }
+
+      .services-section {
+        --card-bg: rgba(255, 255, 255, 0.04);
+        --card-border: rgba(255, 255, 255, 0.1);
+        --card-hover: rgba(255, 255, 255, 0.08);
+        background: #0a0a0a;
+        transition: background 0.5s ease;
+      }
+
+      [data-theme="day"] .services-section {
+        --card-bg: rgba(0, 0, 0, 0.03);
+        --card-border: rgba(0, 0, 0, 0.08);
+        --card-hover: rgba(0, 0, 0, 0.06);
+        background: #f4f4f2;
+      }
+
+      .service-card {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        transition:
+          background 0.35s ease,
+          border-color 0.35s ease,
+          transform 0.35s ease;
+      }
+
+      .service-card:hover {
+        background: var(--card-hover);
+        transform: translateY(-2px);
+      }
+
+      .service-icon {
+        color: var(--hero-accent);
+        transition: color 0.5s ease;
+      }
     </style>
   </head>
   <body class="font-sora antialiased">
@@ -245,7 +279,7 @@
         class="absolute left-1/2 hidden -translate-x-1/2 items-center gap-8 md:flex"
       >
         <a
-          href="#"
+          href="#services"
           class="text-sm uppercase tracking-widest text-muted-foreground transition-colors duration-500 hover:text-foreground"
         >
           Services
@@ -308,6 +342,35 @@
       </div>
     </section>
 
+    <section
+      id="services"
+      class="services-section px-6 py-20 md:px-16 md:py-28"
+      aria-labelledby="services-heading"
+    >
+      <div class="mx-auto max-w-6xl">
+        <div class="mb-14 text-center md:mb-16">
+          <p class="hero-muted mb-3 text-xs uppercase tracking-[0.25em]">What we offer</p>
+          <h2
+            id="services-heading"
+            class="text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl"
+          >
+            <span class="hero-accent">Solar services</span>
+            <span class="hero-muted"> built for you</span>
+          </h2>
+          <p class="hero-subtext mx-auto mt-5 max-w-2xl text-sm leading-relaxed md:text-base">
+            From first consultation to decades of worry-free power — every service is designed
+            around the Sentinel Smart Controller guarantee.
+          </p>
+        </div>
+
+        <div
+          id="services-grid"
+          class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+          role="list"
+        ></div>
+      </div>
+    </section>
+
     <button
       type="button"
       id="theme-toggle"
@@ -339,9 +402,43 @@
       </span>
     </button>
 
+    <script src="src/data/services.js"></script>
     <script>
       const root = document.documentElement;
       const themeToggle = document.getElementById("theme-toggle");
+
+      const SERVICE_ICONS = {
+        home: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-5h4v5h4a1 1 0 0 0 1-1V9.5"/></svg>`,
+        building: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M9 7h1M9 11h1M9 15h1M14 7h1M14 11h1M14 15h1M9 20v-3h6v3"/></svg>`,
+        chip: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="1"/><path d="M9 2v3M12 2v3M15 2v3M9 19v3M12 19v3M15 19v3M2 9h3M2 12h3M2 15h3M19 9h3M19 12h3M19 15h3"/></svg>`,
+        battery: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="18" height="10" rx="2"/><path d="M22 11v2"/><path d="M6 11v2M10 11v2M14 11v2"/></svg>`,
+        wrench: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.1 2.1-3.3-3.3z"/></svg>`,
+        chart: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18"/><path d="M7 16V8M12 16V5M17 16v-6"/></svg>`,
+      };
+
+      function renderServices() {
+        const grid = document.getElementById("services-grid");
+        if (!grid || !window.MOCK_SERVICES) return;
+
+        grid.innerHTML = window.MOCK_SERVICES.map(
+          (service) => `
+            <article class="service-card flex flex-col rounded-2xl p-6 md:p-7" role="listitem">
+              <div class="service-icon mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-white/5">
+                ${SERVICE_ICONS[service.icon] || SERVICE_ICONS.chip}
+              </div>
+              <h3 class="hero-accent mb-2 text-lg font-semibold tracking-tight">${service.title}</h3>
+              <p class="hero-subtext mb-5 flex-1 text-sm leading-relaxed">${service.description}</p>
+              <ul class="hero-muted mb-5 space-y-1.5 text-xs">
+                ${service.features.map((f) => `<li class="flex items-center gap-2"><span class="h-1 w-1 shrink-0 rounded-full bg-current opacity-60"></span>${f}</li>`).join("")}
+              </ul>
+              <div class="flex items-baseline justify-between border-t border-white/10 pt-4">
+                <span class="hero-muted text-xs uppercase tracking-widest">From</span>
+                <span class="hero-accent text-sm font-semibold">${service.priceFrom}</span>
+              </div>
+            </article>
+          `
+        ).join("");
+      }
 
       function setTheme(theme) {
         root.setAttribute("data-theme", theme);
@@ -352,6 +449,8 @@
         const nextTheme = root.getAttribute("data-theme") === "day" ? "night" : "day";
         setTheme(nextTheme);
       });
+
+      renderServices();
     </script>
   </body>
 </html>
