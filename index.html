@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="night">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -29,10 +29,204 @@
       };
     </script>
     <style>
-      :root {
+      :root,
+      [data-theme="night"] {
         --foreground: 0 0% 96%;
         --muted-foreground: 0 0% 60%;
         --nav-button: 0 0% 18%;
+        --hero-muted: #8a8a85;
+        --hero-accent: #ffffff;
+        --hero-subtext: rgba(255, 255, 255, 0.8);
+      }
+
+      [data-theme="day"] {
+        --foreground: 220 15% 16%;
+        --muted-foreground: 220 8% 42%;
+        --nav-button: 0 0% 100%;
+        --hero-muted: #5a5a55;
+        --hero-accent: #1c1c1a;
+        --hero-subtext: rgba(28, 28, 26, 0.85);
+      }
+
+      nav {
+        transition: background-color 0.5s ease, backdrop-filter 0.5s ease;
+      }
+
+      [data-theme="day"] nav {
+        background-color: rgba(255, 255, 255, 0.78);
+        -webkit-backdrop-filter: blur(12px);
+        backdrop-filter: blur(12px);
+      }
+
+      .hero {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      .hero-bg {
+        position: absolute;
+        inset: 0;
+        background-size: cover;
+        background-position: center;
+        z-index: 1;
+        transition: opacity 0.6s ease;
+      }
+
+      .hero-bg-night {
+        background-image: url("src/assets/hero-bg.png");
+        opacity: 1;
+      }
+
+      .hero-bg-day {
+        background-image: url("src/assets/hero-bg-day.png");
+        opacity: 0;
+      }
+
+      [data-theme="day"] .hero-bg-night {
+        opacity: 0;
+      }
+
+      [data-theme="day"] .hero-bg-day {
+        opacity: 1;
+      }
+
+      .blur-overlay {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 10vh;
+        z-index: 2;
+        pointer-events: none;
+        -webkit-backdrop-filter: blur(25px) saturate(1.5);
+        backdrop-filter: blur(25px) saturate(1.5);
+      }
+
+      .blur-overlay-top {
+        top: 0;
+        -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+        mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+      }
+
+      .blur-overlay-bottom {
+        bottom: 0;
+        -webkit-mask-image: linear-gradient(to top, black 70%, transparent 100%);
+        mask-image: linear-gradient(to top, black 70%, transparent 100%);
+      }
+
+      .hero-muted {
+        color: var(--hero-muted);
+        transition: color 0.5s ease;
+      }
+
+      .hero-accent {
+        color: var(--hero-accent);
+        transition: color 0.5s ease;
+      }
+
+      .hero-subtext {
+        color: var(--hero-subtext);
+        transition: color 0.5s ease;
+      }
+
+      .glass-toggle {
+        position: relative;
+        width: 11.5rem;
+        height: 3.75rem;
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        border-radius: 9999px;
+        background: rgba(255, 255, 255, 0.1);
+        -webkit-backdrop-filter: blur(18px) saturate(1.4);
+        backdrop-filter: blur(18px) saturate(1.4);
+        box-shadow:
+          0 10px 28px rgba(0, 0, 0, 0.28),
+          inset 0 1px 1px rgba(255, 255, 255, 0.18),
+          inset 0 -3px 6px rgba(0, 0, 0, 0.18);
+        cursor: pointer;
+        transition: box-shadow 0.4s ease, background 0.4s ease;
+      }
+
+      .glass-toggle:hover {
+        background: rgba(255, 255, 255, 0.14);
+      }
+
+      .glass-toggle:active {
+        transform: scale(0.98);
+      }
+
+      .glass-toggle-label {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 1.05rem;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.95);
+        letter-spacing: 0.01em;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.35s ease;
+      }
+
+      .glass-toggle-label-day {
+        right: 1.75rem;
+      }
+
+      .glass-toggle-label-night {
+        left: 1.75rem;
+      }
+
+      [data-theme="day"] .glass-toggle-label-day {
+        opacity: 1;
+      }
+
+      [data-theme="night"] .glass-toggle-label-night {
+        opacity: 1;
+      }
+
+      .glass-toggle-thumb {
+        position: absolute;
+        top: 50%;
+        left: 0.3rem;
+        width: 3.15rem;
+        height: 3.15rem;
+        border: 1px solid rgba(255, 255, 255, 0.42);
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.18);
+        -webkit-backdrop-filter: blur(22px) saturate(1.6);
+        backdrop-filter: blur(22px) saturate(1.6);
+        box-shadow:
+          inset 2px 2px 5px rgba(255, 255, 255, 0.38),
+          inset -2px -3px 6px rgba(0, 0, 0, 0.12),
+          0 5px 14px rgba(0, 0, 0, 0.22);
+        transform: translateY(-50%);
+        transition: left 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+      }
+
+      [data-theme="night"] .glass-toggle-thumb {
+        left: calc(100% - 3.15rem - 0.3rem);
+      }
+
+      .glass-toggle-icon {
+        position: absolute;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .glass-toggle-icon svg {
+        display: block;
+      }
+
+      [data-theme="day"] .glass-toggle-icon-sun {
+        opacity: 1;
+      }
+
+      [data-theme="night"] .glass-toggle-icon-moon {
+        opacity: 1;
       }
     </style>
   </head>
@@ -42,7 +236,7 @@
     >
       <a
         href="/"
-        class="text-xl font-semibold tracking-tight text-foreground"
+        class="text-xl font-semibold tracking-tight text-foreground transition-colors duration-500"
       >
         SENTINEL
       </a>
@@ -52,31 +246,31 @@
       >
         <a
           href="#"
-          class="text-sm uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground"
+          class="text-sm uppercase tracking-widest text-muted-foreground transition-colors duration-500 hover:text-foreground"
         >
           Services
         </a>
         <a
           href="#"
-          class="text-sm uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground"
+          class="text-sm uppercase tracking-widest text-muted-foreground transition-colors duration-500 hover:text-foreground"
         >
           About Us
         </a>
         <a
           href="#"
-          class="text-sm uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground"
+          class="text-sm uppercase tracking-widest text-muted-foreground transition-colors duration-500 hover:text-foreground"
         >
           Projects
         </a>
         <a
           href="#"
-          class="text-sm uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground"
+          class="text-sm uppercase tracking-widest text-muted-foreground transition-colors duration-500 hover:text-foreground"
         >
           Team
         </a>
         <a
           href="#"
-          class="text-sm uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground"
+          class="text-sm uppercase tracking-widest text-muted-foreground transition-colors duration-500 hover:text-foreground"
         >
           Contacts
         </a>
@@ -84,32 +278,80 @@
 
       <button
         type="button"
-        class="hidden items-center justify-center rounded-lg bg-nav-button px-6 py-3 text-xs uppercase tracking-widest text-foreground transition-all hover:bg-nav-button/80 active:scale-[0.97] md:inline-flex"
+        class="hidden items-center justify-center rounded-lg bg-nav-button px-6 py-3 text-xs uppercase tracking-widest text-foreground transition-all duration-500 hover:bg-nav-button/80 active:scale-[0.97] md:inline-flex"
       >
         Get Quote
       </button>
     </nav>
 
-    <section class="relative flex h-screen w-full flex-col overflow-hidden bg-black font-inter">
-      <!-- Background images can be added here later -->
-      <div class="absolute inset-0 bg-black" aria-hidden="true"></div>
+    <section class="hero flex w-full flex-col bg-black font-inter">
+      <div class="blur-overlay blur-overlay-top" aria-hidden="true"></div>
+      <div class="blur-overlay blur-overlay-bottom" aria-hidden="true"></div>
+      <div class="hero-bg hero-bg-night" aria-hidden="true"></div>
+      <div class="hero-bg hero-bg-day" aria-hidden="true"></div>
 
       <div class="relative z-10 px-6 pt-28 text-center md:pt-32">
         <h1 class="text-4xl font-semibold leading-[1.15] tracking-tight sm:text-5xl md:text-6xl">
-          <span class="text-[#8A8A85]">Turn </span>
-          <span class="text-white">sunlight</span>
-          <span class="text-[#8A8A85]"> <br> into 10 years of savings</span>
+          <span class="hero-muted">Turn </span>
+          <span class="hero-accent">sunlight</span>
+          <span class="hero-muted"> <br /> into 10 years of savings</span>
         </h1>
       </div>
 
       <div class="flex-1" aria-hidden="true"></div>
 
       <div class="relative z-10 px-6 pb-10 text-center md:pb-14">
-        <p class="mx-auto max-w-xl text-sm leading-relaxed text-white/80 md:text-base">
+        <p class="hero-subtext mx-auto max-w-xl text-sm leading-relaxed md:text-base">
           Forget the energy market, weather conditions and seasons; our Smart Controller
           guarantees you get no electricity bill for Ten years.
         </p>
       </div>
     </section>
+
+    <button
+      type="button"
+      id="theme-toggle"
+      class="glass-toggle fixed bottom-6 left-8 z-40 lg:left-16"
+      aria-label="Toggle day and night mode"
+      aria-pressed="false"
+    >
+      <span class="glass-toggle-label glass-toggle-label-night">Night</span>
+      <span class="glass-toggle-label glass-toggle-label-day">Day</span>
+      <span class="glass-toggle-thumb" aria-hidden="true">
+        <span class="glass-toggle-icon glass-toggle-icon-sun">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="12" cy="12" r="4" fill="currentColor" stroke="none" />
+            <line x1="12" y1="2" x2="12" y2="5" />
+            <line x1="12" y1="19" x2="12" y2="22" />
+            <line x1="2" y1="12" x2="5" y2="12" />
+            <line x1="19" y1="12" x2="22" y2="12" />
+            <line x1="4.2" y1="4.2" x2="6.3" y2="6.3" />
+            <line x1="17.7" y1="17.7" x2="19.8" y2="19.8" />
+            <line x1="4.2" y1="19.8" x2="6.3" y2="17.7" />
+            <line x1="17.7" y1="6.3" x2="19.8" y2="4.2" />
+          </svg>
+        </span>
+        <span class="glass-toggle-icon glass-toggle-icon-moon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M21 14.5A8.5 8.5 0 0 1 9.5 3 7 7 0 1 0 21 14.5z" />
+          </svg>
+        </span>
+      </span>
+    </button>
+
+    <script>
+      const root = document.documentElement;
+      const themeToggle = document.getElementById("theme-toggle");
+
+      function setTheme(theme) {
+        root.setAttribute("data-theme", theme);
+        themeToggle.setAttribute("aria-pressed", theme === "day" ? "true" : "false");
+      }
+
+      themeToggle.addEventListener("click", () => {
+        const nextTheme = root.getAttribute("data-theme") === "day" ? "night" : "day";
+        setTheme(nextTheme);
+      });
+    </script>
   </body>
 </html>
