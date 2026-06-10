@@ -229,22 +229,32 @@
         opacity: 1;
       }
 
-      .services-section {
+      .content-section {
         --card-bg: rgba(255, 255, 255, 0.04);
         --card-border: rgba(255, 255, 255, 0.1);
         --card-hover: rgba(255, 255, 255, 0.08);
+        --divider: rgba(255, 255, 255, 0.1);
         background: #0a0a0a;
         transition: background 0.5s ease;
       }
 
-      [data-theme="day"] .services-section {
+      .content-section-alt {
+        background: #111110;
+      }
+
+      [data-theme="day"] .content-section {
         --card-bg: rgba(0, 0, 0, 0.03);
         --card-border: rgba(0, 0, 0, 0.08);
         --card-hover: rgba(0, 0, 0, 0.06);
+        --divider: rgba(0, 0, 0, 0.08);
         background: #f4f4f2;
       }
 
-      .service-card {
+      [data-theme="day"] .content-section-alt {
+        background: #eaeae8;
+      }
+
+      .content-card {
         background: var(--card-bg);
         border: 1px solid var(--card-border);
         transition:
@@ -253,14 +263,43 @@
           transform 0.35s ease;
       }
 
-      .service-card:hover {
+      .content-card:hover {
         background: var(--card-hover);
         transform: translateY(-2px);
       }
 
-      .service-icon {
+      .content-icon {
         color: var(--hero-accent);
         transition: color 0.5s ease;
+      }
+
+      .project-thumb {
+        background: linear-gradient(135deg, var(--accent) 0%, rgba(0, 0, 0, 0.4) 100%);
+      }
+
+      .team-avatar {
+        background: linear-gradient(135deg, var(--accent) 0%, rgba(0, 0, 0, 0.35) 100%);
+      }
+
+      .contact-input {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        color: var(--hero-accent);
+        transition: border-color 0.3s ease, background 0.3s ease;
+      }
+
+      .contact-input::placeholder {
+        color: var(--hero-muted);
+        opacity: 0.7;
+      }
+
+      .contact-input:focus {
+        outline: none;
+        border-color: rgba(255, 255, 255, 0.25);
+      }
+
+      [data-theme="day"] .contact-input:focus {
+        border-color: rgba(0, 0, 0, 0.2);
       }
     </style>
   </head>
@@ -285,37 +324,37 @@
           Services
         </a>
         <a
-          href="#"
+          href="#about"
           class="text-sm uppercase tracking-widest text-muted-foreground transition-colors duration-500 hover:text-foreground"
         >
           About Us
         </a>
         <a
-          href="#"
+          href="#projects"
           class="text-sm uppercase tracking-widest text-muted-foreground transition-colors duration-500 hover:text-foreground"
         >
           Projects
         </a>
         <a
-          href="#"
+          href="#team"
           class="text-sm uppercase tracking-widest text-muted-foreground transition-colors duration-500 hover:text-foreground"
         >
           Team
         </a>
         <a
-          href="#"
+          href="#contact"
           class="text-sm uppercase tracking-widest text-muted-foreground transition-colors duration-500 hover:text-foreground"
         >
           Contacts
         </a>
       </div>
 
-      <button
-        type="button"
+      <a
+        href="#contact"
         class="hidden items-center justify-center rounded-lg bg-nav-button px-6 py-3 text-xs uppercase tracking-widest text-foreground transition-all duration-500 hover:bg-nav-button/80 active:scale-[0.97] md:inline-flex"
       >
         Get Quote
-      </button>
+      </a>
     </nav>
 
     <section class="hero flex w-full flex-col bg-black font-inter">
@@ -344,7 +383,7 @@
 
     <section
       id="services"
-      class="services-section px-6 py-20 md:px-16 md:py-28"
+      class="content-section px-6 py-20 md:px-16 md:py-28"
       aria-labelledby="services-heading"
     >
       <div class="mx-auto max-w-6xl">
@@ -368,6 +407,169 @@
           class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
           role="list"
         ></div>
+      </div>
+    </section>
+
+    <section
+      id="about"
+      class="content-section content-section-alt px-6 py-20 md:px-16 md:py-28"
+      aria-labelledby="about-heading"
+    >
+      <div class="mx-auto max-w-6xl">
+        <div class="mb-14 text-center md:mb-16">
+          <p id="about-tagline" class="hero-muted mb-3 text-xs uppercase tracking-[0.25em]"></p>
+          <h2
+            id="about-heading"
+            class="text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl"
+          >
+            <span id="about-headline" class="hero-accent"></span>
+            <span id="about-subheadline" class="hero-muted"></span>
+          </h2>
+        </div>
+
+        <div id="about-body" class="mx-auto mb-14 max-w-3xl space-y-4 text-center"></div>
+
+        <div
+          id="about-stats"
+          class="mb-14 grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6"
+        ></div>
+
+        <div id="about-values" class="grid gap-6 md:grid-cols-3"></div>
+      </div>
+    </section>
+
+    <section
+      id="projects"
+      class="content-section px-6 py-20 md:px-16 md:py-28"
+      aria-labelledby="projects-heading"
+    >
+      <div class="mx-auto max-w-6xl">
+        <div class="mb-14 text-center md:mb-16">
+          <p class="hero-muted mb-3 text-xs uppercase tracking-[0.25em]">Our work</p>
+          <h2
+            id="projects-heading"
+            class="text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl"
+          >
+            <span class="hero-accent">Featured projects</span>
+            <span class="hero-muted"> across the region</span>
+          </h2>
+          <p class="hero-subtext mx-auto mt-5 max-w-2xl text-sm leading-relaxed md:text-base">
+            Real installations delivering measurable savings — from family homes to megawatt-scale
+            commercial sites.
+          </p>
+        </div>
+
+        <div
+          id="projects-grid"
+          class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+          role="list"
+        ></div>
+      </div>
+    </section>
+
+    <section
+      id="team"
+      class="content-section content-section-alt px-6 py-20 md:px-16 md:py-28"
+      aria-labelledby="team-heading"
+    >
+      <div class="mx-auto max-w-6xl">
+        <div class="mb-14 text-center md:mb-16">
+          <p class="hero-muted mb-3 text-xs uppercase tracking-[0.25em]">The people</p>
+          <h2
+            id="team-heading"
+            class="text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl"
+          >
+            <span class="hero-accent">Meet the team</span>
+            <span class="hero-muted"> behind Sentinel</span>
+          </h2>
+          <p class="hero-subtext mx-auto mt-5 max-w-2xl text-sm leading-relaxed md:text-base">
+            Engineers, installers, and advocates united by one goal — making solar effortless for
+            every customer.
+          </p>
+        </div>
+
+        <div
+          id="team-grid"
+          class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+          role="list"
+        ></div>
+      </div>
+    </section>
+
+    <section
+      id="contact"
+      class="content-section px-6 py-20 md:px-16 md:py-28"
+      aria-labelledby="contact-heading"
+    >
+      <div class="mx-auto max-w-6xl">
+        <div class="mb-14 text-center md:mb-16">
+          <p id="contact-tagline" class="hero-muted mb-3 text-xs uppercase tracking-[0.25em]"></p>
+          <h2
+            id="contact-heading"
+            class="text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl"
+          >
+            <span id="contact-headline" class="hero-accent"></span>
+            <span id="contact-subheadline" class="hero-muted"></span>
+          </h2>
+          <p
+            id="contact-description"
+            class="hero-subtext mx-auto mt-5 max-w-2xl text-sm leading-relaxed md:text-base"
+          ></p>
+        </div>
+
+        <div class="grid gap-10 lg:grid-cols-2 lg:gap-14">
+          <div id="contact-info" class="space-y-6"></div>
+
+          <form
+            id="contact-form"
+            class="content-card rounded-2xl p-6 md:p-8"
+            novalidate
+          >
+            <h3 class="hero-accent mb-6 text-lg font-semibold">Send us a message</h3>
+            <div class="space-y-4">
+              <div>
+                <label for="contact-name" class="hero-muted mb-1.5 block text-xs uppercase tracking-widest">Name</label>
+                <input
+                  id="contact-name"
+                  name="name"
+                  type="text"
+                  required
+                  class="contact-input w-full rounded-lg px-4 py-3 text-sm"
+                  placeholder="Your name"
+                />
+              </div>
+              <div>
+                <label for="contact-email" class="hero-muted mb-1.5 block text-xs uppercase tracking-widest">Email</label>
+                <input
+                  id="contact-email"
+                  name="email"
+                  type="email"
+                  required
+                  class="contact-input w-full rounded-lg px-4 py-3 text-sm"
+                  placeholder="you@example.com"
+                />
+              </div>
+              <div>
+                <label for="contact-message" class="hero-muted mb-1.5 block text-xs uppercase tracking-widest">Message</label>
+                <textarea
+                  id="contact-message"
+                  name="message"
+                  rows="4"
+                  required
+                  class="contact-input w-full resize-none rounded-lg px-4 py-3 text-sm"
+                  placeholder="Tell us about your property and energy goals..."
+                ></textarea>
+              </div>
+              <button
+                type="submit"
+                class="w-full rounded-lg bg-nav-button px-6 py-3 text-xs uppercase tracking-widest text-foreground transition-all duration-500 hover:bg-nav-button/80 active:scale-[0.97]"
+              >
+                Send message
+              </button>
+              <p id="contact-form-status" class="hero-muted hidden text-center text-xs" role="status"></p>
+            </div>
+          </form>
+        </div>
       </div>
     </section>
 
@@ -403,6 +605,10 @@
     </button>
 
     <script src="src/data/services.js"></script>
+    <script src="src/data/about.js"></script>
+    <script src="src/data/projects.js"></script>
+    <script src="src/data/team.js"></script>
+    <script src="src/data/contact.js"></script>
     <script>
       const root = document.documentElement;
       const themeToggle = document.getElementById("theme-toggle");
@@ -422,8 +628,8 @@
 
         grid.innerHTML = window.MOCK_SERVICES.map(
           (service) => `
-            <article class="service-card flex flex-col rounded-2xl p-6 md:p-7" role="listitem">
-              <div class="service-icon mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-white/5">
+            <article class="content-card flex flex-col rounded-2xl p-6 md:p-7" role="listitem">
+              <div class="content-icon mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-white/5">
                 ${SERVICE_ICONS[service.icon] || SERVICE_ICONS.chip}
               </div>
               <h3 class="hero-accent mb-2 text-lg font-semibold tracking-tight">${service.title}</h3>
@@ -431,13 +637,156 @@
               <ul class="hero-muted mb-5 space-y-1.5 text-xs">
                 ${service.features.map((f) => `<li class="flex items-center gap-2"><span class="h-1 w-1 shrink-0 rounded-full bg-current opacity-60"></span>${f}</li>`).join("")}
               </ul>
-              <div class="flex items-baseline justify-between border-t border-white/10 pt-4">
+              <div class="flex items-baseline justify-between border-t pt-4" style="border-color: var(--divider)">
                 <span class="hero-muted text-xs uppercase tracking-widest">From</span>
                 <span class="hero-accent text-sm font-semibold">${service.priceFrom}</span>
               </div>
             </article>
           `
         ).join("");
+      }
+
+      function renderAbout() {
+        const data = window.MOCK_ABOUT;
+        if (!data) return;
+
+        document.getElementById("about-tagline").textContent = data.tagline;
+        document.getElementById("about-headline").textContent = data.headline + " ";
+        document.getElementById("about-subheadline").textContent = data.subheadline;
+
+        document.getElementById("about-body").innerHTML = data.paragraphs
+          .map((p) => `<p class="hero-subtext text-sm leading-relaxed md:text-base">${p}</p>`)
+          .join("");
+
+        document.getElementById("about-stats").innerHTML = data.stats
+          .map(
+            (stat) => `
+              <div class="content-card rounded-2xl p-5 text-center md:p-6">
+                <p class="hero-accent text-2xl font-semibold tracking-tight md:text-3xl">${stat.value}</p>
+                <p class="hero-muted mt-1 text-xs uppercase tracking-widest">${stat.label}</p>
+              </div>
+            `
+          )
+          .join("");
+
+        document.getElementById("about-values").innerHTML = data.values
+          .map(
+            (value) => `
+              <article class="content-card rounded-2xl p-6 md:p-7">
+                <h3 class="hero-accent mb-2 text-lg font-semibold tracking-tight">${value.title}</h3>
+                <p class="hero-subtext text-sm leading-relaxed">${value.description}</p>
+              </article>
+            `
+          )
+          .join("");
+      }
+
+      function renderProjects() {
+        const grid = document.getElementById("projects-grid");
+        if (!grid || !window.MOCK_PROJECTS) return;
+
+        grid.innerHTML = window.MOCK_PROJECTS.map(
+          (project) => `
+            <article class="content-card overflow-hidden rounded-2xl" role="listitem">
+              <div class="project-thumb flex h-36 items-end p-5" style="--accent: ${project.accent}">
+                <span class="rounded-full bg-black/30 px-3 py-1 text-xs font-medium uppercase tracking-widest text-white backdrop-blur-sm">${project.type}</span>
+              </div>
+              <div class="p-6 md:p-7">
+                <div class="mb-3 flex items-start justify-between gap-3">
+                  <h3 class="hero-accent text-lg font-semibold tracking-tight">${project.name}</h3>
+                  <span class="hero-muted shrink-0 text-xs">${project.year}</span>
+                </div>
+                <p class="hero-muted mb-3 text-xs uppercase tracking-widest">${project.location}</p>
+                <p class="hero-subtext mb-5 text-sm leading-relaxed">${project.description}</p>
+                <div class="flex items-center justify-between border-t pt-4 text-xs" style="border-color: var(--divider)">
+                  <div>
+                    <span class="hero-muted uppercase tracking-widest">Capacity</span>
+                    <p class="hero-accent mt-0.5 font-semibold">${project.capacity}</p>
+                  </div>
+                  <div class="text-right">
+                    <span class="hero-muted uppercase tracking-widest">Est. savings</span>
+                    <p class="hero-accent mt-0.5 font-semibold">${project.savings}</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+          `
+        ).join("");
+      }
+
+      function renderTeam() {
+        const grid = document.getElementById("team-grid");
+        if (!grid || !window.MOCK_TEAM) return;
+
+        grid.innerHTML = window.MOCK_TEAM.map(
+          (member) => `
+            <article class="content-card rounded-2xl p-6 md:p-7" role="listitem">
+              <div
+                class="team-avatar mb-5 flex h-14 w-14 items-center justify-center rounded-full text-sm font-semibold text-white"
+                style="--accent: ${member.accent}"
+                aria-hidden="true"
+              >${member.initials}</div>
+              <h3 class="hero-accent text-lg font-semibold tracking-tight">${member.name}</h3>
+              <p class="hero-muted mb-3 text-xs uppercase tracking-widest">${member.role}</p>
+              <p class="hero-subtext text-sm leading-relaxed">${member.bio}</p>
+            </article>
+          `
+        ).join("");
+      }
+
+      function renderContact() {
+        const data = window.MOCK_CONTACT;
+        if (!data) return;
+
+        document.getElementById("contact-tagline").textContent = data.tagline;
+        document.getElementById("contact-headline").textContent = data.headline + " ";
+        document.getElementById("contact-subheadline").textContent = data.subheadline;
+        document.getElementById("contact-description").textContent = data.description;
+
+        document.getElementById("contact-info").innerHTML = `
+          <div class="content-card rounded-2xl p-6 md:p-7">
+            <h3 class="hero-accent mb-5 text-lg font-semibold">Contact details</h3>
+            <dl class="space-y-4 text-sm">
+              <div>
+                <dt class="hero-muted text-xs uppercase tracking-widest">Phone</dt>
+                <dd class="hero-accent mt-1"><a href="tel:${data.phone.replace(/\D/g, "")}" class="hover:opacity-80">${data.phone}</a></dd>
+              </div>
+              <div>
+                <dt class="hero-muted text-xs uppercase tracking-widest">Email</dt>
+                <dd class="hero-accent mt-1"><a href="mailto:${data.email}" class="hover:opacity-80">${data.email}</a></dd>
+              </div>
+              <div>
+                <dt class="hero-muted text-xs uppercase tracking-widest">Office</dt>
+                <dd class="hero-accent mt-1">${data.address.line1}<br />${data.address.line2}</dd>
+              </div>
+            </dl>
+          </div>
+          <div class="content-card rounded-2xl p-6 md:p-7">
+            <h3 class="hero-accent mb-5 text-lg font-semibold">Business hours</h3>
+            <ul class="space-y-3 text-sm">
+              ${data.hours.map((row) => `<li class="flex justify-between gap-4"><span class="hero-muted">${row.days}</span><span class="hero-accent">${row.time}</span></li>`).join("")}
+            </ul>
+          </div>
+          <div class="content-card rounded-2xl p-6 md:p-7">
+            <h3 class="hero-accent mb-5 text-lg font-semibold">Follow us</h3>
+            <div class="flex flex-wrap gap-3">
+              ${data.social.map((link) => `<a href="${link.href}" target="_blank" rel="noopener noreferrer" class="hero-muted rounded-lg border px-4 py-2 text-xs uppercase tracking-widest transition-colors hover:text-foreground" style="border-color: var(--card-border)">${link.label}</a>`).join("")}
+            </div>
+          </div>
+        `;
+      }
+
+      function initContactForm() {
+        const form = document.getElementById("contact-form");
+        const status = document.getElementById("contact-form-status");
+        if (!form) return;
+
+        form.addEventListener("submit", (event) => {
+          event.preventDefault();
+          status.textContent = "Thanks! Your message has been received. We'll be in touch within 1 business day.";
+          status.classList.remove("hidden");
+          form.reset();
+        });
       }
 
       function setTheme(theme) {
@@ -451,6 +800,11 @@
       });
 
       renderServices();
+      renderAbout();
+      renderProjects();
+      renderTeam();
+      renderContact();
+      initContactForm();
     </script>
   </body>
 </html>
